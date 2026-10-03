@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-10-02",
-  "sourceNote": "公開招募／合作資訊；職缺可能隨時變更，聯絡前請回原始來源確認。",
+  "sourceNote": "公開招募／合作資訊＋高齡照護巡診合作線索；「巡診合作線索」只代表公開資料確認院所有醫師巡診，不等於正在公開徵醫師。職缺可能隨時變更，聯絡前請回原始來源確認。",
   "opportunities": [
     {
       "id": "opp-xuanhe",
@@ -31,7 +31,10 @@
       "sourceDate": "2026-09-09",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-hongan",
@@ -61,7 +64,10 @@
       "sourceDate": "2026-09-24",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-ailin",
@@ -91,7 +97,10 @@
       "sourceDate": "2026-09-28",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-sanitas",
@@ -121,7 +130,10 @@
       "sourceDate": "2026-09-07",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-youth",
@@ -151,7 +163,10 @@
       "sourceDate": "2026-09-13",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-kangze",
@@ -181,7 +196,10 @@
       "sourceDate": "2026-10-01",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-jianxin",
@@ -212,7 +230,10 @@
       "sourceDate": "2026-10-01",
       "lat": null,
       "lng": null,
-      "approximate": true
+      "approximate": true,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-chen",
@@ -243,7 +264,10 @@
       "sourceDate": "2026-06-25",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-fengyuan",
@@ -273,7 +297,10 @@
       "sourceDate": "2026-06-29",
       "lat": null,
       "lng": null,
-      "approximate": true
+      "approximate": true,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-homepro",
@@ -305,7 +332,10 @@
       "sourceDate": "2026-10-02（查詢日）",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-aiqun",
@@ -335,7 +365,10 @@
       "sourceDate": "2026-08-18（104列表日期）",
       "lat": null,
       "lng": null,
-      "approximate": false
+      "approximate": false,
+      "neuro": false,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
     },
     {
       "id": "opp-zhengxin",
@@ -366,7 +399,110 @@
       "sourceDate": "2026-09-28",
       "lat": null,
       "lng": null,
-      "approximate": true
+      "approximate": true,
+      "neuro": true,
+      "eldercare": false,
+      "institutionType": "診所／醫療體系"
+    },
+    {
+      "id": "opp-leadin-neuro",
+      "name": "領醫立達神經醫學復健中心",
+      "county": "臺北市",
+      "district": "中正區",
+      "address": "臺北市中正區忠孝東路一段54號1樓",
+      "specialties": "神經內科",
+      "family": false,
+      "rehab": false,
+      "neuro": true,
+      "eldercare": false,
+      "institutionType": "神經內科／復健整合診所",
+      "types": [
+        "parttime",
+        "partnership"
+      ],
+      "typeLabel": "兼診神經內科醫師＋合作分紅",
+      "details": "104徵才頁目前列有兼診神經內科醫師，週1–3診、時段可議；診所整合神經內科、神經復健與物理治療。",
+      "compensation": "待遇面議；徵才頁明載精準醫療與整合照護項目有合作分紅／利潤共享機制",
+      "contact": "可由104職缺或診所官方窗口聯絡",
+      "phone": "0800-600-015",
+      "email": "",
+      "website": "https://leadinneu.com/",
+      "social": "官方網站提供 LINE 預約入口",
+      "pt": "神經復健＋物理治療團隊，另有藥師與護理團隊",
+      "scale": "神經內科與復健整合型中心；善導寺站旁",
+      "partnership": "明確合作分紅／利潤共享訊號；未見公開股權條款",
+      "source": "104人力銀行＋領醫立達官方網站",
+      "sourceUrl": "https://www.104.com.tw/company/1a2x6bletb?jobsource=joblist_list",
+      "sourceDate": "2026-10-02（查詢日；104職缺近期仍在徵）",
+      "lat": null,
+      "lng": null,
+      "approximate": false
+    },
+    {
+      "id": "lead-taian-nursinghome",
+      "name": "台安護理之家",
+      "county": "新竹市",
+      "district": "香山區",
+      "address": "新竹市香山區西濱路六段585號",
+      "specialties": "高齡照護／護理之家巡診合作線索",
+      "family": false,
+      "rehab": false,
+      "neuro": false,
+      "eldercare": true,
+      "institutionType": "一般護理之家／長照",
+      "types": [
+        "carelead"
+      ],
+      "typeLabel": "巡診合作線索（非公開醫師職缺）",
+      "details": "2026/9/29公開護理職缺的工作內容明確包含「協助醫師巡診及安排住民門診」，表示院所有固定或既有醫師巡診流程；适合主动询问特约／巡诊医师合作需求。",
+      "compensation": "未公開醫師巡診合作條件",
+      "contact": "李先生（公開職缺聯絡人）",
+      "phone": "",
+      "email": "",
+      "website": "",
+      "social": "",
+      "pt": "未查到公開 PT/OT/ST 配置",
+      "scale": "護理之家／安養中心／長照；公開招募顯示16個職缺（整體機構職缺數）",
+      "partnership": "可主動詢問巡診／特約醫師合作；目前沒有公開醫師職缺證據",
+      "source": "1111人力銀行",
+      "sourceUrl": "https://www.1111.com.tw/job/92254260?mid=searchlist",
+      "sourceDate": "2026-09-29",
+      "lat": null,
+      "lng": null,
+      "approximate": false
+    },
+    {
+      "id": "lead-cixin-nursinghome",
+      "name": "慈馨護理之家",
+      "county": "新北市",
+      "district": "板橋區",
+      "address": "新北市板橋區館前東路96號2樓",
+      "specialties": "高齡照護／護理之家巡診合作線索",
+      "family": false,
+      "rehab": false,
+      "neuro": false,
+      "eldercare": true,
+      "institutionType": "一般護理之家／安養中心／長照",
+      "types": [
+        "carelead"
+      ],
+      "typeLabel": "巡診合作線索（非公開醫師職缺）",
+      "details": "2026/9/11公開護理職缺明確寫有「協助醫師巡診」，顯示院所有醫師巡診需求／流程；适合主动询问定期巡诊、特约医师或医疗顾问合作。",
+      "compensation": "未公開醫師巡診合作條件",
+      "contact": "杜主任（公開職缺聯絡人）",
+      "phone": "",
+      "email": "",
+      "website": "",
+      "social": "",
+      "pt": "未查到公開 PT/OT/ST 配置",
+      "scale": "護理之家／安養中心／長照",
+      "partnership": "可主動詢問巡診／特約醫師合作；目前沒有公開醫師職缺證據",
+      "source": "1111人力銀行",
+      "sourceUrl": "https://www.1111.com.tw/job/84804690?mid=searchlist",
+      "sourceDate": "2026-09-11",
+      "lat": null,
+      "lng": null,
+      "approximate": false
     }
   ]
 }

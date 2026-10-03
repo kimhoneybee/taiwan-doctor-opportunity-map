@@ -1,0 +1,68 @@
+name: Build deploy package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "opportunities.json"
+      - ".github/workflows/build-deploy-package.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare deploy package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy
+          cp index.html opportunities.json deploy/
+          cat > deploy/README_DEPLOY.txt <<'EOF'
+          Taiwan Doctor Opportunity Map - Deployment Package
+
+          Files
+          -----
+          index.html
+          opportunities.json
+
+          How to deploy
+          -------------
+          1. Keep index.html and opportunities.json in the SAME web root folder.
+          2. Upload the contents of this ZIP to any static web host.
+          3. Open the site's root URL. index.html loads ./opportunities.json automatically.
+
+          Compatible examples
+          -------------------
+          - Netlify (drag-and-drop deploy)
+          - Cloudflare Pages
+          - Vercel static hosting
+          - GitHub Pages
+          - cPanel / FTP static hosting
+          - Any ordinary web server that can serve HTML/JSON over HTTPS
+
+          Important
+          ---------
+          - Do not rename opportunities.json unless you also change index.html.
+          - The page uses external CDN/map/data services, so the visitor needs internet access.
+          - For weekly updates, replace opportunities.json with the newest copy and keep index.html unchanged unless the UI changes.
+          EOF
+
+          cd deploy
+          zip -9 -r ../taiwan-doctor-opportunity-map-deploy.zip .
+          cd ..
+
+      - name: Upload deploy ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: taiwan-doctor-opportunity-map-deploy
+          path: taiwan-doctor-opportunity-map-deploy.zip
+          if-no-files-found: error
+          retention-days: 30

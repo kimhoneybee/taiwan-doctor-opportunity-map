@@ -19,11 +19,11 @@ The tool is safe to rerun: existing coordinates are skipped unless `--overwrite`
 
 ## Service limits and stored results
 
-Esri currently documents a 20,000 monthly free tier for geocodes that are not stored, followed by $0.50 per 1,000; stored geocodes are $4 per 1,000. This tool sends `forStorage=true` because the results are written to the repository; 65 stored results would be about $0.26 at the published rate. The API requires an ArcGIS account/API key. Review current pricing and account quotas before running.
+Esri currently documents a 20,000 monthly free tier for geocodes that are not stored, followed by $0.50 per 1,000; stored geocodes are $4 per 1,000 ([current pricing](https://developers.arcgis.com/pricing/credits/)). This tool sends `forStorage=true` because the results are written to the repository; 65 stored results would be about $0.26 at the published rate. The API requires an ArcGIS account/API key. Review current pricing and account quotas before running. The [address-candidate API](https://developers.arcgis.com/rest/geocode/find-address-candidates/) returns a score and address match type, documented in the [service output fields](https://developers.arcgis.com/rest/geocode/service-output/).
 
-TGOS is an official Taiwan alternative for batch address matching, but requires TGOS membership and approval for an API key. The government service page lists a daily limit of 10,000 records and an estimated 72-hour processing time. The batch tool does not call TGOS until a provider adapter is implemented and the applicable key and data-use terms are confirmed.
+TGOS is an official Taiwan alternative for batch address matching, but requires TGOS membership and approval for an API key. The [government service page](https://www.gov.tw/News_Content_2_371654) lists a daily limit of 10,000 records and an estimated 72-hour processing time. The batch tool does not call TGOS until a provider adapter is implemented and the applicable key and data-use terms are confirmed.
 
-The public OSM Nominatim endpoint is not used for repeat website requests. Its published policy caps use at one request per second, requires app identification and attribution, discourages periodic app requests, and requires results from one-time bulk jobs to be cached.
+The public [OSM Nominatim endpoint](https://operations.osmfoundation.org/policies/nominatim/) is not used for repeat website requests. Its published policy caps use at one request per second, requires app identification and attribution, discourages periodic app requests, and requires results from one-time bulk jobs to be cached.
 
 ## Location quality in the UI
 

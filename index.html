@@ -39,7 +39,7 @@ input:focus,select:focus{border-color:#64748b;box-shadow:0 0 0 3px rgba(100,116,
 .results-panel{min-width:0;overflow:auto;background:#f5f8fa;border-right:1px solid #dbe3e8}
 .results-head{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 18px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #e5e7eb}
 .results-head h2{margin:0;font-size:15px}
-.results-head .small{font-size:11px;color:#64748b}
+.results-head .small{font-size:11px;color:#64748b}.location-badge{display:inline-block;margin:4px 4px 2px 0;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:700;background:#e2e8f0;color:#475569}.location-badge.verified{background:#dcfce7;color:#166534}.location-badge.approx{background:#fef3c7;color:#92400e}.location-badge.unlocated{background:#f1f5f9;color:#475569}.location-badge.pending{background:#e0f2fe;color:#075985}
 .results{padding:14px 18px 28px;display:block}
 .card{background:#fff;border:1px solid #dce5ea;border-radius:12px;padding:15px 16px;box-shadow:0 1px 2px rgba(15,23,42,.03);font-size:12px;line-height:1.55;cursor:pointer;transition:.15s ease;min-width:0;margin-bottom:11px}
 .card:hover{border-color:#94a3b8;box-shadow:0 5px 16px rgba(15,23,42,.07);transform:translateY(-1px)}
@@ -64,7 +64,7 @@ input:focus,select:focus{border-color:#64748b;box-shadow:0 0 0 3px rgba(100,116,
 .map-head button{width:auto;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:6px 8px}
 #map{flex:1;min-height:360px}
 .clinic{width:13px;height:13px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #64748b}.family{background:#2563eb}.rehab{background:#059669}.neuro{background:#db2777}.both{background:#7c3aed}
-.oppmark{width:24px;height:24px;border:2px solid white;border-radius:50% 50% 50% 6px;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px #64748b;background:#e11d48}.oppmark.partner{background:#f59e0b}.oppmark.new{background:#0ea5e9}.oppmark.care{background:#0f766e}.oppmark span{transform:rotate(45deg);color:white;font-weight:800}
+.oppmark{width:24px;height:24px;border:2px solid white;border-radius:50% 50% 50% 6px;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px #64748b;background:#e11d48}.oppmark.partner{background:#f59e0b}.oppmark.new{background:#0ea5e9}.oppmark.care{background:#0f766e}.oppmark span{transform:rotate(45deg);color:white;font-weight:800}.oppmark.approx{background:#64748b;border-style:dashed}.oppmark.approx span{font-size:11px}
 .leaflet-popup-content{min-width:250px;max-width:340px;font-size:12px;line-height:1.5}.actions a{display:inline-block;margin:5px 5px 0 0;padding:4px 7px;border:1px solid #cbd5e1;border-radius:6px;text-decoration:none;color:#0f172a}
 .small{font-size:11px;color:#64748b}
 @media(max-width:1100px){
@@ -185,7 +185,6 @@ input:focus,select:focus{border-color:#64748b;box-shadow:0 0 0 3px rgba(100,116,
 (function(){
 "use strict";
 var ARC="https://services7.arcgis.com/tVmMUEViFfyHBZvj/ArcGIS/rest/services/hospital_tw/FeatureServer/0/query";
-var GEO="https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates";
 var counties=["臺北市","新北市","桃園市","臺中市","臺南市","高雄市","基隆市","新竹市","嘉義市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣","澎湖縣","金門縣","連江縣"];
 var map=L.map("map").setView([23.75,121],7);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
@@ -208,8 +207,7 @@ async function loadClinics(){
  clinics=feats.map(function(f){var p=f.properties||{},c=f.geometry&&f.geometry.coordinates,s=spec(p);return{name:p["醫療院所"]||"",county:String(p["縣市"]||"").replace(/台/g,"臺"),district:p["鄉鎮市區"]||"",address:p["地址"]||"",phone:p["電話"]||"",responsible:p["負責人"]||"",departments:s.departments,institutionType:p["型態別"]||"",family:s.family,rehab:s.rehab,neuro:s.neuro,lng:c?+c[0]:null,lat:c?+c[1]:null}}).filter(function(x){return x.lat&&x.lng});
 }
 async function loadOpps(){
- var js=await getJSON("./opportunities.json?v="+Date.now());opps=Array.isArray(js)?js:(js.opportunities||[]);updated=js.updatedAt||"";
- await Promise.all(opps.map(async function(o){if(Number.isFinite(o.lat)&&Number.isFinite(o.lng))return;try{var q=new URLSearchParams({SingleLine:o.address||o.name,countryCode:"TWN",maxLocations:"1",outSR:"4326",f:"json"}),j=await getJSON(GEO+"?"+q.toString()),c=j.candidates&&j.candidates[0];if(c&&c.location){o.lng=+c.location.x;o.lat=+c.location.y}}catch(e){}}));
+ var js=await getJSON("./opportunities.json");opps=Array.isArray(js)?js:(js.opportunities||[]);updated=js.updatedAt||"";
 }
 function specialtyMatch(x,s){
  if(!s)return true;
@@ -236,10 +234,12 @@ function clinicFiltered(){var c=$("county").value,s=$("specialty").value,i=$("in
 function oppFiltered(){var c=$("county").value,s=$("specialty").value,i=$("institution").value,t=$("oppType").value,q=norm($("search").value);return opps.filter(function(x){return specialtyMatch(x,s)&&(!c||x.county===c)&&(!i||institutionGroup(x)===i)&&(!t||(x.types||[]).indexOf(t)>=0)&&(!q||norm([x.name,x.address,x.specialties,x.institutionType,x.contact,x.details,x.partnership].join(" ")).indexOf(q)>=0)}).sort(function(a,b){return String(b.sourceDate||"").localeCompare(String(a.sourceDate||""))})}
 function clinicIcon(x){var n=(x.family?1:0)+(x.rehab?1:0)+(x.neuro?1:0),cl=n>1?"both":x.neuro?"neuro":x.family?"family":"rehab";return L.divIcon({className:"",html:'<div class="clinic '+cl+'"></div>',iconSize:[13,13],iconAnchor:[6,6]})}
 function oppClass(o){return(o.types||[]).indexOf("carelead")>=0?"care":(o.types||[]).indexOf("partnership")>=0?"partner":(o.types||[]).indexOf("newsite")>=0?"new":"parttime"}
-function oppIcon(o){var cl=oppClass(o),sym=cl==="partner"?"★":cl==="new"?"+":cl==="care"?"護":"醫";return L.divIcon({className:"",html:'<div class="oppmark '+cl+'"><span>'+sym+'</span></div>',iconSize:[26,26],iconAnchor:[13,24]})}
+function oppIcon(o){var cl=oppClass(o),sym=cl==="partner"?"★":cl==="new"?"+":cl==="care"?"護":"醫";if(o.approximate)cl+=" approx";return L.divIcon({className:"",html:'<div class="oppmark '+cl+'"><span>'+sym+'</span></div>',iconSize:[26,26],iconAnchor:[13,24]})}
 function oppTags(o){var a=[];(o.types||[]).forEach(function(t){a.push('<span class="tag '+(t==="partnership"||t==="startup"?"partner":t==="newsite"?"new":t==="carelead"?"care":t==="fulltime"?"full":"")+'">'+({parttime:"兼職/支援",fulltime:"專任/全職",partnership:"合作/合夥",newsite:"新據點",startup:"開業培訓",carelead:"巡診／特約",takeover:"接手／頂讓"}[t]||t)+'</span>')});return a.join("")}
+function locationLabel(o){if(Number.isFinite(o.lat)&&Number.isFinite(o.lng))return o.approximate||o.locationQuality!=="address"?"概略位置（非門牌級）":"門牌級座標（已核實）";var hasStreetNumber=/[0-9０-９]+(?:之[0-9０-９]+)?號/.test(o.address||"");return o.approximate&&!hasStreetNumber?"地址不完整；未提供概略點":"座標尚待驗證"}
+function locationBadge(o){var cls=Number.isFinite(o.lat)&&Number.isFinite(o.lng)?(o.approximate||o.locationQuality!=="address"?"approx":"verified"):(o.approximate?"unlocated":"pending");return '<span class="location-badge '+cls+'">'+esc(locationLabel(o))+'</span>'}
 function popupClinic(x){return'<b>'+esc(x.name)+'</b><br>'+esc(x.departments)+'<br>'+esc(x.address)+'<br>'+esc(x.phone)+(x.responsible?'<br>負責人線索：'+esc(x.responsible)+'<br><small>負責人來源為較舊空間資料，請再確認。</small>':"")}
-function popupOpp(o){var g="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(o.address||o.name);return'<b>★ '+esc(o.name)+'</b><br>'+oppTags(o)+'<br><b>'+esc(o.typeLabel)+'</b><br>'+esc(o.details)+'<br><b>待遇/診次：</b>'+esc(o.compensation||"—")+'<br><b>合作訊號：</b>'+esc(o.partnership||"—")+'<br><b>合作潛力：</b>'+esc(o.cooperationPotential||"—")+'<br><b>聯絡：</b>'+esc([o.contact,o.phone,o.email].filter(Boolean).join("｜")||"由原始來源聯絡")+'<br><b>機構類型：</b>'+esc(o.institutionType||"—")+'<br><b>刊登日期：</b>'+esc(o.sourceDate||"")+'｜'+esc(o.source||"")+'<div class="actions"><a target="_blank" href="'+esc(o.sourceUrl)+'">原始來源</a>'+(o.website?'<a target="_blank" href="'+esc(o.website)+'">官網</a>':"")+'<a target="_blank" href="'+g+'">Google 地圖</a></div>'}
+function popupOpp(o){var g="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(o.address||o.name);return'<b>★ '+esc(o.name)+'</b><br>'+oppTags(o)+'<br><b>位置品質：</b>'+esc(locationLabel(o))+'<br><b>'+esc(o.typeLabel)+'</b><br>'+esc(o.details)+'<br><b>待遇/診次：</b>'+esc(o.compensation||"—")+'<br><b>合作訊號：</b>'+esc(o.partnership||"—")+'<br><b>合作潛力：</b>'+esc(o.cooperationPotential||"—")+'<br><b>聯絡：</b>'+esc([o.contact,o.phone,o.email].filter(Boolean).join("｜")||"由原始來源聯絡")+'<br><b>機構類型：</b>'+esc(o.institutionType||"—")+'<br><b>刊登日期：</b>'+esc(o.sourceDate||"")+'｜'+esc(o.source||"")+'<div class="actions"><a target="_blank" href="'+esc(o.sourceUrl)+'">原始來源</a>'+(o.website?'<a target="_blank" href="'+esc(o.website)+'">官網</a>':"")+'<a target="_blank" href="'+g+'">Google 地圖</a></div>'}
 function render(fit){
  var cf=clinicFiltered(),of=oppFiltered();clinicLayer.clearLayers();oppLayer.clearLayers();var all=[];
  cf.forEach(function(x){var m=L.marker([x.lat,x.lng],{icon:clinicIcon(x),title:x.name}).bindPopup(popupClinic(x));clinicLayer.addLayer(m);all.push(m)});
@@ -252,7 +252,7 @@ function render(fit){
    of.forEach(function(o){
      html+='<article class="card opp" data-oid="'+esc(o.id)+'">'+
        '<div class="card-top"><div><div class="name">'+esc(o.name)+'</div><div class="loc">'+esc([o.county,o.district].filter(Boolean).join(" "))+' · '+esc(o.institutionType||"醫療院所")+'</div></div></div>'+
-       '<div class="tags">'+oppTags(o)+'</div>'+
+       '<div class="tags">'+oppTags(o)+' '+locationBadge(o)+'</div>'+
        '<div><b>'+esc(o.typeLabel||o.specialties||"醫師機會")+'</b></div>'+
        '<div class="card-detail">'+esc(o.details||"")+'</div>'+
        (o.compensation?'<div class="card-detail"><b>待遇／診次：</b>'+esc(o.compensation)+'</div>':"")+
@@ -298,7 +298,7 @@ $("results").addEventListener("click",function(e){
  setTimeout(function(){map.setView([o.lat,o.lng],14);oppLayer.eachLayer(function(m){if(m.options&&m.options.title===o.name)m.openPopup()})},150);
 });
 if(window.innerWidth<=820)setMapVisible(false);
-(async function(){try{await Promise.all([loadClinics(),loadOpps()]);fillCounties();render(true);setStatus("完成：診所點位 "+clinics.length.toLocaleString()+"；醫師機會 "+opps.length+"。機會資料更新："+(updated||"未標示")+"。")}catch(e){console.error(e);setStatus("載入失敗："+esc(e.message)+"。可重新整理頁面再試。")}})();
+(async function(){try{await Promise.all([loadClinics(),loadOpps()]);fillCounties();render(true);setStatus("完成：診所點位 "+clinics.length.toLocaleString()+"；醫師機會 "+opps.length+"。座標狀態：門牌級 "+opps.filter(function(o){return Number.isFinite(o.lat)&&Number.isFinite(o.lng)&&o.locationQuality==="address"&&!o.approximate}).length+"、概略點 "+opps.filter(function(o){return Number.isFinite(o.lat)&&Number.isFinite(o.lng)&&(o.approximate||o.locationQuality!=="address")}).length+"、未定位 "+opps.filter(function(o){return !Number.isFinite(o.lat)||!Number.isFinite(o.lng)}).length+"。不會在頁面載入時呼叫地理編碼服務。資料更新："+(updated||"未標示")+"。")}catch(e){console.error(e);setStatus("載入失敗："+esc(e.message)+"。可重新整理頁面再試。")}})();
 })();
 </script>
 </body>
